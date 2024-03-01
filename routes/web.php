@@ -16,7 +16,11 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [ProductController::class, 'home'])->name('products.home');
+Route::get('/', [ProductController::class, 'home'])->name('home');
+
+Route::get('cart', [ProductController::class, 'cart'])->name('cart');
+
+Route::post('products/add-to-cart', [ProductController::class, 'addToCart'])->name('products.add-to-cart');
 
 Route::middleware([
     'auth:sanctum',
