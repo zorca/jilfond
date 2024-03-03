@@ -55,14 +55,14 @@ const logout = () => {
                             </div>
                         </div>
 
-                        <div class="flex items-center">
-                            <fwb-dropdown :text="$t('Cart') + ' (' + $page.props.cart?.length + ')'">
+                        <div v-if="$page.props.cart" class="flex items-center">
+                            <fwb-dropdown :text="$t('shop.cart') + ' (' + Object.keys($page.props.cart).length + ')'">
                                 <div>
                                     <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                                        <Link class="underline" :href="route('cart')">Перейти в корзину</Link>
+                                        <Link class="underline" :href="route('cart.index')">Перейти в корзину</Link>
                                     </div>
                                     <ul class="h-48 overflow-x-hidden  overflow-y-auto list-none p-4">
-                                        <li class="p-4" v-for="item in $page.props.cart">{{ item.name }} - {{ item.cart_quantity }} шт.</li>
+                                        <li class="p-4" v-for="item in $page.props.cart">{{ item.name }} - {{ item.quantity }} шт.</li>
                                     </ul>
                                 </div>
                             </fwb-dropdown>

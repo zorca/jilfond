@@ -20,7 +20,7 @@ defineProps({
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                     <ul>
                         <li v-for="item in cart">
-                            <h2>{{ item.name }}</h2>
+                            <h2>{{ item.name }} - {{ item.quantity }} шт.</h2>
                         </li>
                     </ul>
                 </div>

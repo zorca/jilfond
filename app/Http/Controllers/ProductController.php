@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
@@ -26,7 +27,7 @@ class ProductController extends Controller
      */
     public function home()
     {
-        $cart = Session::get('shop.cart');
+        $cart = Session::get('shop.cart', []);
         return Inertia::render('Home', [
             'entities' => Product::query()->paginate(12),
             'cart' => $cart,
@@ -43,33 +44,6 @@ class ProductController extends Controller
     public function create()
     {
         //
-    }
-
-    /**
-     * Display a shop cart.
-     */
-    public function cart()
-    {
-        $cart = Session::get('shop.cart');
-        return Inertia::render('Cart', [
-            'cart' => $cart,
-        ]);
-    }
-
-    public function addToCart(Request $request)
-    {
-        $request->validate([
-            'entity_id' => 'nullable|integer',
-            'quantity' => 'nullable|integer|max:100',
-        ]);
-
-        $product = Product::query()->findOrFail($request->input('entity_id'));
-
-        $product->cart_quantity = $request->input('quantity');
-
-        Session::push('shop.cart', $product->toArray());
-
-        return back()->with('status','test');
     }
 
     /**

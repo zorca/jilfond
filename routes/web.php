@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +19,9 @@ use Inertia\Inertia;
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
 
-Route::get('cart', [ProductController::class, 'cart'])->name('cart');
+Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
-Route::post('products/add-to-cart', [ProductController::class, 'addToCart'])->name('products.add-to-cart');
+Route::post('cart/add-to-cart', [CartController::class, 'add'])->name('cart.add');
 
 Route::middleware([
     'auth:sanctum',
