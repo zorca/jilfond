@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::post('cart/add-to-cart', [CartController::class, 'add'])->name('cart.add');
+
+Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
 
 Route::middleware([
     'auth:sanctum',

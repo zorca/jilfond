@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -9,21 +10,30 @@ use Inertia\Inertia;
 
 class CartController extends Controller
 {
-
     /**
      * Display a shopping cart with all items.
      */
     public function index()
     {
-        $cart = Session::get('shop.cart');
+        $cart = Session::get('shop.cart', []);
+
+        $quantity = 0;
+        $sum = 0;
+        foreach ($cart as $index => $item) {
+            $cart[$index]['sum'] = $cart[$index]['quantity'] * $cart[$index]['price'];
+            $quantity += $cart[$index]['quantity'];
+            $sum += $cart[$index]['sum'];
+        }
+
         return Inertia::render('Cart', [
-            'cart' => $cart,
+            'cart' => empty($cart) ? null : $cart,
+            'quantity' => $quantity,
+            'sum' => $sum,
         ]);
     }
 
-
     /**
-     * Add item with quantity to cart
+     * Add item with quantity to cart.
      */
     public function add(Request $request)
     {
@@ -53,6 +63,6 @@ class CartController extends Controller
 
         Session::put('shop.cart', $cart);
 
-        return back()->with('status','test');
+        return back();
     }
 }
