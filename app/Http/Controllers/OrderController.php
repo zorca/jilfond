@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Product;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 
 class OrderController extends Controller
 {
@@ -15,7 +18,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Orders', [
+            'entities' => Order::query()->with('items')->paginate(3),
+            'sum' => Order::query()->sum('sum'),
+        ]);
     }
 
     /**
@@ -33,11 +39,22 @@ class OrderController extends Controller
     {
         $cart = Session::get('shop.cart');
 
+        $quantity = 0;
+        $sum = 0;
+        foreach ($cart as $index => $item) {
+            $cart[$index]['sum'] = $cart[$index]['quantity'] * $cart[$index]['price'];
+            $quantity += $cart[$index]['quantity'];
+            $sum += $cart[$index]['sum'];
+        }
+
         if (! $cart) {
             return back();
         }
 
-        $order = Order::query()->create();
+        $order = Order::query()->create([
+            'quantity' => $quantity,
+            'sum' => $sum,
+        ]);
         $order->items()->createMany($cart, ['id']);
 
         Session::forget('shop.cart');

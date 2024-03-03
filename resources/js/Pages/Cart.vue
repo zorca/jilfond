@@ -33,15 +33,15 @@ defineProps({
                         <li v-for="item in cart">
                             <div class="flex flex-wrap items-center">
                                 <div class="w-full md:w-1/3 p-4">
-                                    <h2 class="font-extrabold font-xl mb-2">{{ item.name }}</h2>
+                                    <h2 class="font-extrabold text-xl mb-2">{{ item.name }}</h2>
                                     <p class="p-2">{{ item.description }}</p>
-                                    <span class="font-extrabold font-lg p-2">{{ item.price }} ₽</span>
+                                    <span class="font-extrabold text-lg p-2">{{ item.price }} ₽</span>
                                 </div>
                                 <div class="w-full md:w-1/3 p-4">
-                                    <span class="font-extrabold font-lg">{{ item.quantity }}</span>
+                                    <span class="font-extrabold text-lg">{{ item.quantity }}</span>
                                 </div>
                                 <div class="w-full md:w-1/3 p-4">
-                                    <span class="font-extrabold font-lg">{{ item.sum }} ₽</span>
+                                    <span class="font-extrabold text-lg">{{ item.sum }} ₽</span>
                                 </div>
                             </div>
                         </li>
@@ -63,7 +63,7 @@ defineProps({
                     </div>
                 </div>
                 <div class="mt-4 flex justify-end">
-                    <Link class="rounded-lg px-3 py-2 bg-blue-700 text-white" as="button" method="post" :href="route('order.store')">Оформить заказ</Link>
+                    <Link class="rounded-lg px-3 py-2 bg-blue-700 text-white" as="button" method="post" :href="route('orders.store')">Оформить заказ</Link>
                 </div>
             </div>
         </div>

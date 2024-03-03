@@ -24,7 +24,9 @@ Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::post('cart/add-to-cart', [CartController::class, 'add'])->name('cart.add');
 
-Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
+Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+
+Route::post('orders/store', [OrderController::class, 'store'])->name('orders.store');
 
 Route::middleware([
     'auth:sanctum',

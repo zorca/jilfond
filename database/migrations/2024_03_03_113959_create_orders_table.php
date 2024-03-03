@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->integer('quantity');
+            $table->decimal('sum', 8, 2);
             $table->timestamps();
         });
     }
