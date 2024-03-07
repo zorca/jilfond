@@ -51,14 +51,10 @@ class CartController extends Controller
 
         $cart = Session::get('shop.cart', []);
 
-        if (! array_key_exists($entityId, $cart)) {
-            $cart[$entityId] = $cartItem;
+        if (array_key_exists($entityId, $cart)) {
+            $cart[$entityId]['quantity'] += $quantity;
         } else {
-            foreach ($cart as $index => $item) {
-                if ($index === $entityId) {
-                    $cart[$entityId]['quantity'] += $quantity;
-                }
-            }
+            $cart[$entityId] = $cartItem;
         }
 
         Session::put('shop.cart', $cart);
